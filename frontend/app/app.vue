@@ -2,7 +2,7 @@
   <div class="min-h-screen flex flex-col">
     <!-- ═══ Header ════════════════════════════════════════════ -->
     <header class="border-b border-white/10 bg-slate-900/60 backdrop-blur-md sticky top-0 z-50">
-      <div class="max-w-5xl mx-auto px-6 py-4 flex items-center gap-3">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center gap-3">
         <!-- Trophy icon -->
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center shadow-lg shadow-gold-500/30">
           <svg class="w-5 h-5 text-slate-900" fill="currentColor" viewBox="0 0 24 24">
@@ -15,96 +15,81 @@
         </div>
         <!-- Status badge -->
         <div class="ml-auto flex items-center gap-2">
-          <span class="flex h-2 w-2">
+          <span class="flex h-2 w-2 relative">
             <span class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          <span class="text-xs text-slate-400">Live</span>
+          <span class="text-xs font-medium text-slate-300">Live</span>
         </div>
       </div>
     </header>
 
     <!-- ═══ Main ═══════════════════════════════════════════════ -->
-    <main class="flex-1 max-w-5xl mx-auto w-full px-6 py-12">
+    <main class="flex-1 max-w-7xl mx-auto w-full px-6 py-10 lg:py-16">
 
       <!-- Hero caption -->
-      <div class="text-center mb-12">
-        <span class="badge-gold mb-4">⚡ Voting Open</span>
-        <h2 class="text-4xl sm:text-5xl font-extrabold text-white mt-3 mb-2 tracking-tight">
+      <div class="text-center mb-12 sm:mb-16">
+        <span class="badge-gold mb-4 shadow-lg shadow-gold-500/10">⚡ Voting is Open</span>
+        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mt-4 mb-4 tracking-tight drop-shadow-sm">
           Who was the best?
         </h2>
-        <p class="text-slate-400 text-lg">Vote for tonight's standout performer.</p>
+        <p class="text-slate-400 text-lg max-w-xl mx-auto">
+          Cast your vote for tonight's standout performer. The chart updates in real-time as fans across the globe cast their votes.
+        </p>
       </div>
 
-      <!-- Loading state -->
-      <div v-if="pending" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div
-          v-for="n in 5" :key="n"
-          class="card-glass h-48 animate-pulse"
-        />
-      </div>
-
-      <!-- Error state -->
-      <div v-else-if="error" class="text-center py-20">
-        <p class="text-red-400 text-lg">⚠️ Could not connect to the API.</p>
-        <p class="text-slate-500 text-sm mt-2">Make sure the Laravel backend is running on <code class="text-brand-400">http://localhost</code>.</p>
-      </div>
-
-      <!-- Players grid -->
-      <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <article
-          v-for="player in players"
-          :key="player.id"
-          class="card-glass p-6 flex flex-col items-center gap-4 hover:border-white/20 hover:bg-white/8 transition-all duration-300 group"
-        >
-          <!-- Avatar -->
-          <div class="relative">
-            <img
-              v-if="player.photo_url"
-              :src="player.photo_url"
-              :alt="player.name"
-              class="w-20 h-20 rounded-full object-cover border-2 border-white/10 group-hover:border-brand-500/50 transition-all duration-300"
-            />
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        
+        <!-- Players Grid (Left Side) -->
+        <div class="lg:col-span-8 order-2 lg:order-1">
+          <!-- Loading state -->
+          <div v-if="pending && !players.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div
-              v-else
-              class="w-20 h-20 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-2xl font-bold text-white"
-            >
-              {{ player.name[0] }}
-            </div>
+              v-for="n in 5" :key="n"
+              class="card-glass h-[320px] animate-pulse bg-white/5"
+            />
           </div>
 
-          <!-- Info -->
-          <div class="text-center">
-            <p class="font-semibold text-white text-lg leading-tight">{{ player.name }}</p>
-            <p class="text-slate-400 text-sm mt-1">{{ player.position }}</p>
+          <!-- Error state -->
+          <div v-else-if="error" class="text-center py-20 card-glass border-red-500/20 bg-red-500/5">
+            <p class="text-red-400 text-lg font-bold">⚠️ Could not connect to the API.</p>
+            <p class="text-slate-400 text-sm mt-2">Make sure your Laravel backend is running and the database is seeded.</p>
           </div>
 
-          <!-- Vote count -->
-          <div class="flex items-center gap-2 bg-white/5 rounded-full px-4 py-1.5">
-            <svg class="w-4 h-4 text-gold-400" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-            </svg>
-            <span class="text-sm font-semibold text-gold-400">{{ player.vote_count }}</span>
-            <span class="text-xs text-slate-500">votes</span>
+          <!-- The List -->
+          <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <PlayerCard
+              v-for="(player, index) in players"
+              :key="player.id"
+              :player="player"
+              :rank="index + 1"
+              :has-voted="(votedPlayerId !== null && votedPlayerId !== undefined)"
+              :is-voting="votingId === player.id"
+              @vote="castVote"
+            />
           </div>
+        </div>
 
-          <!-- Vote button -->
-          <button class="btn-primary w-full mt-1">
-            Vote
-          </button>
-        </article>
+        <!-- Sidebar / Real-time Chart (Right Side) -->
+        <div class="lg:col-span-4 order-1 lg:order-2 lg:sticky lg:top-28">
+           <VoteChart :players="players" />
+        </div>
+
       </div>
-
     </main>
 
     <!-- ═══ Footer ═══════════════════════════════════════════ -->
-    <footer class="border-t border-white/5 py-6 text-center text-slate-600 text-sm">
-      Man of the Match Live · Built with Laravel 11 + Nuxt 3
+    <footer class="border-t border-white/5 py-8 mt-12 text-center">
+      <p class="text-slate-500 text-sm font-medium">
+        Man of the Match Live · Built with <span class="text-red-400 hover:text-red-300 transition-colors">Laravel 11</span> & <span class="text-emerald-400 hover:text-emerald-300 transition-colors">Nuxt 3</span>
+      </p>
     </footer>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+
 interface Player {
   id: number
   name: string
@@ -113,15 +98,72 @@ interface Player {
   vote_count: number
 }
 
-// Pull API base from runtime config
+// Config & State
 const config = useRuntimeConfig()
 const apiBase = config.public.apiBase
 
-// Fetch all players from the Laravel API
-const { data, pending, error } = await useFetch<{ data: Player[] }>(
+const votedPlayerId = ref<number | null>(null)
+const votingId = ref<number | null>(null)
+let pollInterval: ReturnType<typeof setInterval> | null = null
+
+// Server/Client Fetch Data
+const { data, pending, error, refresh } = await useFetch<{ data: Player[] }>(
   `${apiBase}/players`,
   { key: 'players' }
 )
 
 const players = computed(() => data.value?.data ?? [])
+
+// On Mount: Check LocalStorage & start polling
+onMounted(() => {
+  const savedVote = localStorage.getItem('motm_vote')
+  if (savedVote) {
+    votedPlayerId.value = parseInt(savedVote)
+  }
+
+  // Poll for live votes every 5 seconds without hard reloading the UI
+  pollInterval = setInterval(async () => {
+    await refresh()
+  }, 5000)
+})
+
+onUnmounted(() => {
+  if (pollInterval) clearInterval(pollInterval)
+})
+
+// Voting Logic
+const castVote = async (playerId: number) => {
+  // Prevent double-clicking or voting if already voted
+  if (votedPlayerId.value !== null || votingId.value !== null) return
+
+  votingId.value = playerId
+
+  try {
+    await $fetch(`${apiBase}/players/${playerId}/vote`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' }
+    })
+    
+    // Save state on success
+    votedPlayerId.value = playerId
+    localStorage.setItem('motm_vote', playerId.toString())
+    
+    // Immediately refresh the graph and vote counts
+    await refresh()
+  } catch (err: any) {
+    console.error('Vote failed:', err)
+    
+    // In Sprint 2, the Laravel API emits 429 if IP already voted.
+    if (err.response?.status === 429) {
+      alert(err.response._data?.message || 'You have already voted from this IP in the last hour.')
+      // Since the backend rejected it, they did indeed vote. We lock them out locally too.
+      votedPlayerId.value = playerId
+      localStorage.setItem('motm_vote', playerId.toString())
+    } else {
+      alert('Network error. Please try again later.')
+    }
+  } finally {
+    votingId.value = null
+  }
+}
 </script>
