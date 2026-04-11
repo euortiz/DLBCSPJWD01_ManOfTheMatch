@@ -20,7 +20,7 @@ class PlayersSeeder extends Seeder
             [
                 'name'       => 'Lionel Messi',
                 'position'   => 'Forward',
-                'photo_url'  => 'https://upload.wikimedia.org/wikipedia/commons/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg',
+                'photo_url'  => '/players/messi.webp',
                 'vote_count' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -28,7 +28,7 @@ class PlayersSeeder extends Seeder
             [
                 'name'       => 'Cristiano Ronaldo',
                 'position'   => 'Forward',
-                'photo_url'  => 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg',
+                'photo_url'  => '/players/cr7.webp',
                 'vote_count' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -36,7 +36,7 @@ class PlayersSeeder extends Seeder
             [
                 'name'       => 'Kylian Mbappé',
                 'position'   => 'Forward',
-                'photo_url'  => 'https://upload.wikimedia.org/wikipedia/commons/5/57/2019-07-17_SG_Dynamo_Dresden_vs._Paris_Saint-Germain_by_Sandro_Halank%E2%80%93149_%28cropped%29.jpg',
+                'photo_url'  => '/players/mbappe.png',
                 'vote_count' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -44,7 +44,7 @@ class PlayersSeeder extends Seeder
             [
                 'name'       => 'Erling Haaland',
                 'position'   => 'Forward',
-                'photo_url'  => 'https://upload.wikimedia.org/wikipedia/commons/3/thirty/Erling_Haaland_2023.png',
+                'photo_url'  => '/players/haaland.webp',
                 'vote_count' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -52,7 +52,15 @@ class PlayersSeeder extends Seeder
             [
                 'name'       => 'Vinicius Jr.',
                 'position'   => 'Forward',
-                'photo_url'  => 'https://upload.wikimedia.org/wikipedia/commons/5/fifty/Vinicius_Jr_2023.jpg',
+                'photo_url'  => '/players/vini.jpg',
+                'vote_count' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name'       => 'Lamine Yamal',
+                'position'   => 'Forward',
+                'photo_url'  => '/players/yamal.webp',
                 'vote_count' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),

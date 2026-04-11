@@ -3,12 +3,8 @@
     <!-- ═══ Header ════════════════════════════════════════════ -->
     <header class="border-b border-white/10 bg-slate-900/60 backdrop-blur-md sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-6 py-4 flex items-center gap-3">
-        <!-- Trophy icon -->
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center shadow-lg shadow-gold-500/30">
-          <svg class="w-5 h-5 text-slate-900" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2a1 1 0 0 1 1 1v1h4a1 1 0 0 1 1 1v3c0 2.97-1.81 5.5-4.42 6.57A5.002 5.002 0 0 1 8 19H7v2h4a1 1 0 1 1 0 2H9a1 1 0 1 1 0-2H8v-2.17A6.001 6.001 0 0 1 3 11V7a1 1 0 0 1 1-1h4V3a1 1 0 0 1 1-1h3ZM5 8v3a4 4 0 0 0 3.29 3.92A7.007 7.007 0 0 1 7 11V8H5Zm14 3V8h-2v3c0 1.06-.24 2.06-.67 2.95A4.002 4.002 0 0 0 19 11Z"/>
-          </svg>
-        </div>
+        <!-- Logo -->
+        <img src="/motm_logo.png" alt="MOTM Logo" class="h-10 w-auto object-contain drop-shadow-md rounded-lg" />
         <div>
           <h1 class="text-lg font-bold leading-tight text-white">Man of the Match</h1>
           <p class="text-xs text-slate-400 leading-none">Live Player Voting</p>
@@ -81,7 +77,7 @@
     <!-- ═══ Footer ═══════════════════════════════════════════ -->
     <footer class="border-t border-white/5 py-8 mt-12 text-center">
       <p class="text-slate-500 text-sm font-medium">
-        Man of the Match Live · Built with <span class="text-red-400 hover:text-red-300 transition-colors">Laravel 11</span> & <span class="text-emerald-400 hover:text-emerald-300 transition-colors">Nuxt 3</span>
+        Man of the Match Live · Built with <span class="text-red-400 hover:text-red-300 transition-colors">Laravel 11</span> & <span class="text-emerald-400 hover:text-emerald-300 transition-colors">Nuxt 3</span> by Gustavo Ortiz
       </p>
     </footer>
   </div>
